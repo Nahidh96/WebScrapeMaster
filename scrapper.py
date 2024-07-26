@@ -4,6 +4,8 @@ import os
 from image_handler import save_image, delete_images
 from ai_integration import generate_report
 from dotenv import load_dotenv
+import tkinter as tk
+from tkinter import ttk, messagebox
 
 # Load environment variables from .env file
 load_dotenv()
@@ -45,7 +47,7 @@ def parse_results(results, include_images=False):
         data.append(entry)
     return data
 
-def main():
+def run_terminal():
     query = input("Enter your search query: ")
     num_results = int(input("Enter the number of results you want: "))
     include_images = input("Do you want to include images? (y/n): ").lower() == 'y'
@@ -65,6 +67,70 @@ def main():
     if include_images:
         input("Press Enter to delete downloaded images...")
         delete_images()
+
+def run_gui():
+    def on_search():
+        query = entry_query.get()
+        num_results = int(entry_num_results.get())
+        include_images = var_include_images.get()
+        summarize = var_summarize.get()
+        site_filter = entry_site_filter.get().strip()
+        
+        results = google_search(query, num_results, include_images, site_filter)
+        data = parse_results(results, include_images)
+        df = pd.DataFrame(data)
+        
+        text_output.delete(1.0, tk.END)
+        text_output.insert(tk.END, df.to_string(index=False) + '\n\n')
+        
+        if summarize:
+            report = generate_report(df.to_dict(orient='records'))
+            text_output.insert(tk.END, "Generated Report:\n")
+            text_output.insert(tk.END, report)
+        
+        if include_images:
+            # Show a message when images are downloaded (for demonstration purposes)
+            messagebox.showinfo("Info", "Images have been downloaded and saved.")
+    
+    root = tk.Tk()
+    root.title("Web Scraper GUI")
+
+    # Create and place widgets
+    tk.Label(root, text="Search Query:").grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+    entry_query = tk.Entry(root, width=50)
+    entry_query.grid(row=0, column=1, padx=10, pady=10)
+
+    tk.Label(root, text="Number of Results:").grid(row=1, column=0, padx=10, pady=10, sticky=tk.W)
+    entry_num_results = tk.Entry(root, width=50)
+    entry_num_results.grid(row=1, column=1, padx=10, pady=10)
+
+    tk.Label(root, text="Include Images (y/n):").grid(row=2, column=0, padx=10, pady=10, sticky=tk.W)
+    var_include_images = tk.BooleanVar()
+    ttk.Checkbutton(root, variable=var_include_images).grid(row=2, column=1, padx=10, pady=10, sticky=tk.W)
+
+    tk.Label(root, text="Summarize Results (y/n):").grid(row=3, column=0, padx=10, pady=10, sticky=tk.W)
+    var_summarize = tk.BooleanVar()
+    ttk.Checkbutton(root, variable=var_summarize).grid(row=3, column=1, padx=10, pady=10, sticky=tk.W)
+
+    tk.Label(root, text="Site Filter (e.g., linkedin.com):").grid(row=4, column=0, padx=10, pady=10, sticky=tk.W)
+    entry_site_filter = tk.Entry(root, width=50)
+    entry_site_filter.grid(row=4, column=1, padx=10, pady=10)
+
+    tk.Button(root, text="Search", command=on_search).grid(row=5, column=0, columnspan=2, pady=20)
+
+    text_output = tk.Text(root, wrap=tk.WORD, height=20, width=80)
+    text_output.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+
+    root.mainloop()
+
+def main():
+    choice = input("Do you want to use GUI or Terminal? (Enter 'gui' or 'terminal'): ").strip().lower()
+    if choice == 'gui':
+        run_gui()
+    elif choice == 'terminal':
+        run_terminal()
+    else:
+        print("Invalid choice. Please enter 'gui' or 'terminal'.")
 
 if __name__ == "__main__":
     main()
