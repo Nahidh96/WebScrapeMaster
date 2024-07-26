@@ -1,0 +1,8 @@
+# API key for accessing Google services
+API_KEY = "your_api_key_here"
+
+# ID of the search engine to be used
+SEARCH_ENGINE_ID = "your_search_engine_id_here"
+
+# API key for accessing the Cohere service
+COHERE_API_KEY = "your_cohere_api_key_here"

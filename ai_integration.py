@@ -1,7 +1,9 @@
 import cohere
+from dotenv import load_dotenv
+import os
 
 # Replace with your Cohere API key
-COHERE_API_KEY = 'AXCXgZktGSHLT4mPpJh0v4upucX2imVKWdaowDIZ'
+COHERE_API_KEY = os.getenv('COHERE_API_KEY')
 
 def generate_report(data):
     text_data = ""

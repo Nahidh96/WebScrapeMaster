@@ -3,10 +3,11 @@ import pandas as pd
 import os
 from image_handler import save_image, delete_images
 from ai_integration import generate_report
+from dotenv import load_dotenv
 
 # Define your API key and Custom Search Engine ID
-API_KEY = 'AIzaSyANKHuSgcmY3IQTNT0_Be4WDHyrAd1dN3I'
-SEARCH_ENGINE_ID = 'b1d663e3eb16e41e3'
+API_KEY = os.getenv('API_KEY')
+SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
 
 def google_search(query, num_results=10, include_images=False, site_filter=None):
     search_url = f"https://www.googleapis.com/customsearch/v1"
