@@ -7,6 +7,8 @@ WebScrapeMaster is a Python-based web scraping tool that allows you to search th
 ## Features
 
 - Search the web using Google Custom Search API
+- Retrieve search results based on the search query
+- Limit the number of search results to retrieve
 - Filter results by specific websites
 - Include images in the search results
 - Generate summaries of the search results
