@@ -29,6 +29,29 @@ Follow these steps to set up the project:
 1. Clone the Repository
 
     ```sh
+    git clone
+    ```
+    
+- Filter results by specific websites
+- Include images in the search results
+- Generate summaries of the search results
+
+## Prerequisites
+
+Before getting started, make sure you have the following prerequisites:
+
+- Python 3.6 or higher
+- pip (Python package installer)
+- Google Custom Search API key
+- Google Custom Search Engine ID
+
+## Setup
+
+Follow these steps to set up the project:
+
+1. Clone the Repository
+
+    ```sh
     git clone https://github.com/yourusername/WebScrapeMaster.git
     cd WebScrapeMaster
     ```
