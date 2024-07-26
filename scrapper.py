@@ -5,6 +5,9 @@ from image_handler import save_image, delete_images
 from ai_integration import generate_report
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Define your API key and Custom Search Engine ID
 API_KEY = os.getenv('API_KEY')
 SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
