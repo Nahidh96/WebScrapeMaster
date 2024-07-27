@@ -3,6 +3,10 @@ import json
 from crawl4ai import WebCrawler
 import cohere
 import urllib.parse
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create an instance of WebCrawler
 crawler = WebCrawler()
@@ -34,7 +38,7 @@ result = crawler.run(url=url)
 content = result.markdown
 
 # Initialize Cohere client
-cohere_client = cohere.Client('AXCXgZktGSHLT4mPpJh0v4upucX2imVKWdaowDIZ')
+cohere_client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
 # Define the prompt for summarization
 instructions = (
