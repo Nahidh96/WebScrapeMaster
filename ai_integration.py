@@ -1,6 +1,7 @@
 import cohere
 from dotenv import load_dotenv
 import os
+#hi
 
 # Load environment variables from .env file
 load_dotenv()
